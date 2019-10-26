@@ -1,0 +1,37 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- script: |
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+    echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
+    sudo apt-get update
+    sudo apt-get install k6
+  displayName: Install k6 tool
+
+- script: |
+    k6 version
+  displayName: Check if k6 is installed
+
+- script: |
+    k6 login cloud --token $(k6cloud.token)
+    k6 run --out cloud --out json=out_test.json loadtests/cloud.js
+#   k6 cloud loadtests/cloud.js
+  displayName: Run k6 load test within Azure Pipelines
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: 'out_test.json'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+  displayName: Copy k6 result file into 'Artifact Staging Directory'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'drop'
+  displayName: Publish result file

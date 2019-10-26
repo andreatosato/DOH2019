@@ -1,0 +1,50 @@
+<form [formGroup]="machineForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div *ngFor="let drinkType of drinkTypes" (click)="selectDrinkType(drinkType)" class="col-sm-4">
+      <div class="card">
+        <span [ngSwitch]="drinkType.CodDrink">
+          <img src="../../assets/caffe.jpg" class="card-img-top" style="max-height:200px" *ngSwitchCase="'COFFEE'">
+          <img src="../../assets/cappuccino.jpg" class="card-img-top" style="max-height:200px" *ngSwitchCase="'CAPPUCCINO'">
+          <img src="../../assets/te.jpg" class="card-img-top" style="max-height:200px" *ngSwitchCase="'THE'">
+        </span>
+        <div class="card-body">
+          <h5 class="card-title text-center">{{drinkType.Name}}</h5>
+          <span class="text-center">{{drinkType.Price}}€</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="drinkSelected">Drink Selected</label>
+        <input type="text" class="form-control" formControlName="selectedDrink" id="drinkSelected" [readonly]="true" />
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="drinkPrice">Drink Price</label>
+        <input type="number" class="form-control" formControlName="drinkPrice" id="drinkPrice" [readonly]="true" />
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="coinDifference">Coin Difference</label>
+        <input type="number" class="form-control" formControlName="coinDifference" id="coinDifference" [readonly]="true" />
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="form-group">
+    <label for="coinInserted">Insert Coins</label>
+    <input type="number" class="form-control" min="0" step="0.05" id="coinInserted" placeholder="Insert coins please" formControlName="coinInserted" (change)="coinInsert($event)">
+  </div>
+
+  <button type="submit" [disabled]="isValid()" class="btn btn-primary">Confirm</button>
+
+</form>
+
+<div *ngIf="isWinner" class="text-center">
+  <h1>Congratulation you are WIN!</h1>
+</div>

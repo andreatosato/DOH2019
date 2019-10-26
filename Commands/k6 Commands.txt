@@ -1,0 +1,4 @@
+k6 run --out influxdb=http://localhost:8086/loadTestingDB .\cloud.js
+
+k6 run --out influxdb=http://localhost:8086/loadTestingDB .\localMore2.js
+k6 run --http-debug .\localDebug.js
