@@ -26,10 +26,17 @@ namespace CoffeeMachine.Test.Performance
         }
 
         [Benchmark]
-        public async Task CreateOrderAsync()
+        public async Task GetDrinkAvailableAsync()
         {
             OrderService service = new OrderService(context);
             var result = await service.GetDrinkAvailableAsync();
+        }
+
+        [Benchmark]
+        public async Task GetOrdersHistoriesAsync()
+        {
+            OrderService service = new OrderService(context);
+            var result = await service.GetOrdersHistoriesAsync();
         }
     }
 

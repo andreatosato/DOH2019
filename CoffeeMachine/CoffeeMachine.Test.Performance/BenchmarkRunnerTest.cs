@@ -14,7 +14,7 @@ namespace CoffeeMachine.Test.Performance
         }
 
         [Fact]
-        public void OrderServiceBenchmark_Ctor_Runner()
+        public void OrderServiceBenchmark_Runner()
         {
             BenchmarkRunner.Run<OrderServiceBenchmark>();
         }

@@ -1,12 +1,12 @@
 import { check, group, sleep } from "k6";
 import http from "k6/http";
-const baseUrl = "https://loadtestingazure.azurewebsites.net/";
+const baseUrl = "https://k6loadtesting.azurewebsites.net/";
 
 
 export let options = {
     stages: [
-        {duration: "40s", target: 100},
-        {duration: "100s", target: 250},
+        {duration: "40s", target: 20},
+        {duration: "100s", target: 50},
         {duration: "60s", target: 20},
     ],
     thresholds: {

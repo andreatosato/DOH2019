@@ -11,6 +11,6 @@ namespace CoffeeMachine.Logic.Services
     {
         Task CreateOrderAsync(Order order);
         Task<IEnumerable<Drink>> GetDrinkAvailableAsync();
-        Task<OrderSummaryReadModel> GetOrdersHistories();
+        Task<OrderSummaryReadModel> GetOrdersHistoriesAsync();
     }
 }

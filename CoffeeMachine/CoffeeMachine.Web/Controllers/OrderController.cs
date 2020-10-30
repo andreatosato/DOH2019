@@ -51,7 +51,7 @@ namespace CoffeeMachine.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetHistory()
         {
-            return Ok(await _orderService.GetOrdersHistories());
+            return Ok(await _orderService.GetOrdersHistoriesAsync());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CoffeeMachine.Test.Integration
 {
     public class DrinkControllerTest: IClassFixture<WebApplicationFactory<Startup>>
     {
-        Uri baseAddress;
+        //Uri baseAddress;
         WebApplicationFactory<Startup> _factory;
         HttpClient _client;
         public DrinkControllerTest(WebApplicationFactory<Startup> factory)

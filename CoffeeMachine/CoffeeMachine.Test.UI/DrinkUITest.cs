@@ -9,7 +9,7 @@ namespace CoffeeMachine.Test.UI
     public class DrinkUITest
     {
         // Ambiente di DEV
-        Uri baseAddressCoffeeMachine = new Uri("https://loadtestingazure.azurewebsites.net/machine");
+        Uri baseAddressCoffeeMachine = new Uri("https://k6loadtesting.azurewebsites.net/machine");
        
         [Fact]
         public void BuyCoffee()
@@ -30,6 +30,7 @@ namespace CoffeeMachine.Test.UI
             confirm.Submit();
 
             driver.Close();
+            driver.Quit();
         }
 
         [Fact]
@@ -51,6 +52,7 @@ namespace CoffeeMachine.Test.UI
             confirm.Submit();
 
             driver.Close();
+            driver.Quit();
         }
 
         [Fact]
@@ -79,6 +81,7 @@ namespace CoffeeMachine.Test.UI
             Assert.False(confirmButton.Enabled);
 
             driver.Close();
+            driver.Quit();
         }
     }
 }

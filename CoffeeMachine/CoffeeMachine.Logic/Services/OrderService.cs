@@ -32,13 +32,13 @@ namespace CoffeeMachine.Logic.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task<OrderSummaryReadModel> GetOrdersHistories()
+        public async Task<OrderSummaryReadModel> GetOrdersHistoriesAsync()
         {
             var orderNumbers = await db.Orders.CountAsync();
-            var ordersByDate = await db.Orders
-                .GroupBy(x => x.OrderDate.Date)
-                .Select(x => new { Date = x.Key, Count = x.Count(), Sold = x.Sum(t => t.Drink.Price) })
-                .ToListAsync();
+            var ordersByDate = db.Orders.Include(x => x.Drink)
+                .ToList()
+                .GroupBy(x => x.OrderDate.Date)                
+                .Select(x => new { Date = x.Key, Count = x.Count(), Sold = x.Sum(t => t.Drink?.Price) });
             return new OrderSummaryReadModel
             {
                 TotalOrders = orderNumbers,
@@ -46,7 +46,7 @@ namespace CoffeeMachine.Logic.Services
                 {
                     Date = x.Date,
                     TotalOrders = x.Count,
-                    Sold = x.Sold
+                    Sold = x.Sold.Value
                 })
             };
         }
